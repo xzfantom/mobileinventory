@@ -3,17 +3,27 @@ package by.martynoff.mobileinventory;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 public class mobileInventoryRepository {
 
     private WarehouseDAO warehouseDAO;
+    private GoodDAO goodDAO;
+    private StockDAO stockDAO;
     private LiveData<List<Warehouse>> allWarehouses;
 
     public mobileInventoryRepository (Application application) {
         mobileInventoryDatabase db = mobileInventoryDatabase.getDatabase(application);
         warehouseDAO = db.WarehouseDAO();
+        goodDAO = db.GoodDAO();
+        stockDAO = db.StockDAO();
+
         allWarehouses = warehouseDAO.getAllWarehouses();
     }
 
@@ -23,6 +33,23 @@ public class mobileInventoryRepository {
 
     public void insert (Warehouse warehouse){
         new insertAsyncTask(warehouseDAO).execute(warehouse);
+    }
+
+    public void importFile(String fileName){
+        File inputFile = new File(fileName);
+
+        StringBuilder txt = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(inputFile));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                txt.append(line);
+                txt.append('\n');
+            }
+        } catch (IOException e){
+
+        }
     }
 
     private static class insertAsyncTask extends AsyncTask<Warehouse, Void, Void> {

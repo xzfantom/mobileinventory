@@ -25,4 +25,8 @@ public class mobileInventoryViewModel extends AndroidViewModel {
     public void insert (Warehouse warehouse) {
         mRepository.insert(warehouse);
     }
+
+    public void importFile (String filePath) {
+        mRepository.importFile(filePath);
+    }
 }

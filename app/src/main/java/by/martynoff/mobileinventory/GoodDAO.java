@@ -25,5 +25,5 @@ public interface GoodDAO {
     void deleteAll ();
 
     @Query("SELECT * FROM goods ORDER BY good_name ASC")
-    LiveData<List<Warehouse>> getAllGoods();
+    LiveData<List<Good>> getAllGoods();
 }

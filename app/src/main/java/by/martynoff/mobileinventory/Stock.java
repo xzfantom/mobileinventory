@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 
 @Entity (tableName = "stocks"
         , foreignKeys = {
-        @ForeignKey(entity = WarehouseDAO.class, parentColumns = "id", childColumns = "warehouse_id"),
-        @ForeignKey(entity = GoodDAO.class, parentColumns = "id", childColumns = "good_id")
+        @ForeignKey(entity = Warehouse.class, parentColumns = "id", childColumns = "warehouse_id"),
+        @ForeignKey(entity = Good.class, parentColumns = "id", childColumns = "good_id")
         }
         , primaryKeys = {"warehouse_id", "good_id"}
         )
@@ -20,15 +20,31 @@ public class Stock {
 
     private long good_id;
 
+    public long getWarehouse_id() {
+        return warehouse_id;
+    }
+
+    public long getGood_id() {
+        return good_id;
+    }
+
+    public BigDecimal getAmountBase() {
+        return amountBase;
+    }
+
+    public BigDecimal getAmountFact() {
+        return amountFact;
+    }
+
     @TypeConverters(Converters.class)
     private BigDecimal amountBase;
 
     @TypeConverters(Converters.class)
     private BigDecimal amountFact;
 
-    Stock (Warehouse warehouse, Good good, BigDecimal amountBase, BigDecimal amountFact) {
-        this.warehouse_id = warehouse.getId();
-        this.good_id = good.getId();
+    Stock (long warehouse_id, long good_id, BigDecimal amountBase, BigDecimal amountFact) {
+        this.warehouse_id = warehouse_id;
+        this.good_id = good_id;
         this.amountBase = amountBase;
         this.amountFact = amountFact;
     }

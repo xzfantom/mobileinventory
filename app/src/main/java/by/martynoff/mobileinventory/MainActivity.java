@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private mobileInventoryViewModel mMobileInventoryViewModel;
 
     public static final int NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE = 1;
+    public static final int GET_CONTENT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewWarehouseActivity.class);
-                startActivityForResult(intent, NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE);
+//                Intent intent = new Intent(MainActivity.this, NewWarehouseActivity.class);
+//                startActivityForResult(intent, NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                startActivityForResult(intent, GET_CONTENT);
             }
         });
 
@@ -85,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Warehouse warehouse = new Warehouse(data.getStringExtra(NewWarehouseActivity.EXTRA_REPLY));
             mMobileInventoryViewModel.insert(warehouse);
+
+        } else if (requestCode == GET_CONTENT && resultCode == RESULT_OK){
+            String pathHolder = data.getData().getPath();
+            Toast.makeText(getApplicationContext(), pathHolder, Toast.LENGTH_LONG).show();
+            mMobileInventoryViewModel.importFile(pathHolder);
+
         } else {
             Toast.makeText(
                     getApplicationContext(),
