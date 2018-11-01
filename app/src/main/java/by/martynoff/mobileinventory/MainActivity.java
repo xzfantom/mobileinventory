@@ -87,13 +87,15 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Warehouse warehouse = new Warehouse(data.getStringExtra(NewWarehouseActivity.EXTRA_REPLY));
-            mMobileInventoryViewModel.insert(warehouse);
+
+            //Warehouse warehouse = new Warehouse(data.getStringExtra(NewWarehouseActivity.EXTRA_REPLY));
+            //mMobileInventoryViewModel.insert(warehouse);
 
         } else if (requestCode == GET_CONTENT && resultCode == RESULT_OK){
             String pathHolder = data.getData().getPath();
             Toast.makeText(getApplicationContext(), pathHolder, Toast.LENGTH_LONG).show();
-            mMobileInventoryViewModel.importFile(pathHolder);
+            //getContentResolver().openFileDescriptor(pathHolder, "r")
+            //mMobileInventoryViewModel.importFile();
 
         } else {
             Toast.makeText(

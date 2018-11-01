@@ -24,6 +24,6 @@ public interface GoodDAO {
     @Query("DELETE FROM goods")
     void deleteAll ();
 
-    @Query("SELECT * FROM goods ORDER BY good_name ASC")
+    @Query("SELECT * FROM goods ORDER BY name ASC")
     LiveData<List<Good>> getAllGoods();
 }

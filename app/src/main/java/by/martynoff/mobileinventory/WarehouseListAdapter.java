@@ -35,7 +35,7 @@ public class WarehouseListAdapter extends RecyclerView.Adapter<WarehouseListAdap
     public void onBindViewHolder(WarehouseViewHolder holder, int position) {
         if (mWarehouses != null) {
             Warehouse current = mWarehouses.get(position);
-            holder.warehouseItemView.setText(current.getName());
+            holder.warehouseItemView.setText(current.name);
         } else {
             // Covers the case of data not being ready yet.
             holder.warehouseItemView.setText("No Word");

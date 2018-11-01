@@ -24,6 +24,6 @@ public interface WarehouseDAO {
     @Query("DELETE FROM warehouses")
     void deleteAll ();
 
-    @Query("SELECT * FROM warehouses ORDER BY warehouse_name ASC")
+    @Query("SELECT * FROM warehouses ORDER BY name ASC")
     LiveData<List<Warehouse>> getAllWarehouses();
 }

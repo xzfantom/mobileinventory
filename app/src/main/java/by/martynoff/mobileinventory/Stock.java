@@ -2,49 +2,38 @@ package by.martynoff.mobileinventory;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.TypeConverters;
+import android.support.annotation.NonNull;
 
 import java.math.BigDecimal;
 
 @Entity (tableName = "stocks"
+        , indices = {@Index(value = {"warehouse_code", "good_code"})}
         , foreignKeys = {
-        @ForeignKey(entity = Warehouse.class, parentColumns = "id", childColumns = "warehouse_id"),
-        @ForeignKey(entity = Good.class, parentColumns = "id", childColumns = "good_id")
+        @ForeignKey(entity = Warehouse.class, parentColumns = "code", childColumns = "warehouse_code"),
+        @ForeignKey(entity = Good.class, parentColumns = "code", childColumns = "good_code")
         }
-        , primaryKeys = {"warehouse_id", "good_id"}
+        , primaryKeys = {"warehouse_code", "good_code"}
         )
 public class Stock {
 
-    private long warehouse_id;
+    @NonNull
+    public String warehouse_code;
 
-    private long good_id;
-
-    public long getWarehouse_id() {
-        return warehouse_id;
-    }
-
-    public long getGood_id() {
-        return good_id;
-    }
-
-    public BigDecimal getAmountBase() {
-        return amountBase;
-    }
-
-    public BigDecimal getAmountFact() {
-        return amountFact;
-    }
+    @NonNull
+    public String good_code;
 
     @TypeConverters(Converters.class)
-    private BigDecimal amountBase;
+    public BigDecimal amountBase;
 
     @TypeConverters(Converters.class)
-    private BigDecimal amountFact;
+    public BigDecimal amountFact;
 
-    Stock (long warehouse_id, long good_id, BigDecimal amountBase, BigDecimal amountFact) {
-        this.warehouse_id = warehouse_id;
-        this.good_id = good_id;
+    Stock (String warehouse_code, String good_code, BigDecimal amountBase, BigDecimal amountFact) {
+        this.warehouse_code = warehouse_code;
+        this.good_code = good_code;
         this.amountBase = amountBase;
         this.amountFact = amountFact;
     }
