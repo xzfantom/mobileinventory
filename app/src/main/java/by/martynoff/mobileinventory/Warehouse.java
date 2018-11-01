@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 public class Warehouse {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     @NonNull
     @ColumnInfo(name="warehouse_name")
@@ -37,15 +37,15 @@ public class Warehouse {
         return this.idd;
     }
 
-    public int getId() {
+    public void setIdd(String idd){
+        this.idd = idd;
+    }
+
+    public long getId() {
         return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setIdd(String idd){
-        this.idd = idd;
     }
 }

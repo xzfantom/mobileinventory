@@ -10,20 +10,20 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface WarehouseDAO {
+public interface GoodDAO {
 
     @Insert
-    void insert (Warehouse warehouse);
+    void insert(Good good);
 
     @Update
-    void update (Warehouse warehouse);
+    void update(Good... goods);
 
     @Delete
-    void delete (Warehouse warehouse);
+    void delete(Good... goods);
 
-    @Query("DELETE FROM warehouses")
+    @Query("DELETE FROM goods")
     void deleteAll ();
 
-    @Query("SELECT * FROM warehouses ORDER BY warehouse_name ASC")
-    LiveData<List<Warehouse>> getAllWarehouses();
+    @Query("SELECT * FROM goods ORDER BY good_name ASC")
+    LiveData<List<Warehouse>> getAllGoods();
 }

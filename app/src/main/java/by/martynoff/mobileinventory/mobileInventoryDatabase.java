@@ -5,11 +5,15 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {Warehouse.class}, version = 1)
+@Database(entities = {Warehouse.class, Good.class, Stock.class}, version = 1)
 public abstract class mobileInventoryDatabase extends RoomDatabase {
 
     public abstract WarehouseDAO WarehouseDAO();
 
+    public abstract GoodDAO GoodDAO();
+
+    public abstract StockDAO StockDAO();
+    
     private static volatile mobileInventoryDatabase INSTANCE;
 
     static mobileInventoryDatabase getDatabase (final Context context){
