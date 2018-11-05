@@ -26,4 +26,7 @@ public interface WarehouseDAO {
 
     @Query("SELECT * FROM warehouses ORDER BY name ASC")
     LiveData<List<Warehouse>> getAllWarehouses();
+
+    @Query("SELECT * FROM warehouses WHERE code = :warehouse_code")
+    LiveData<Warehouse> getWarehouseByCode (String warehouse_code);
 }

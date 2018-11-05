@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,11 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE = 1;
     public static final int GET_CONTENT = 2;
+    public static final String WAREHOUSE_CODE= "WAREHOUSE_CODE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +49,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, NewWarehouseActivity.class);
-//                startActivityForResult(intent, NEW_WAREHOUSE_ACTIVITY_REQUEST_CODE);
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
-                startActivityForResult(intent, GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select file"), GET_CONTENT);
             }
         });
 
@@ -92,10 +96,16 @@ public class MainActivity extends AppCompatActivity {
             //mMobileInventoryViewModel.insert(warehouse);
 
         } else if (requestCode == GET_CONTENT && resultCode == RESULT_OK){
-            String pathHolder = data.getData().getPath();
-            Toast.makeText(getApplicationContext(), pathHolder, Toast.LENGTH_LONG).show();
+            Uri pathHolder = data.getData();
+            try {
+                InputStream is = getContentResolver().openInputStream(pathHolder);
+                mMobileInventoryViewModel.importFile(is);
+            }catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+            }
+
             //getContentResolver().openFileDescriptor(pathHolder, "r")
-            //mMobileInventoryViewModel.importFile();
+            //
 
         } else {
             Toast.makeText(

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import java.io.InputStream;
 import java.util.List;
 
 public class mobileInventoryViewModel extends AndroidViewModel {
@@ -23,10 +24,10 @@ public class mobileInventoryViewModel extends AndroidViewModel {
     }
 
     public void insert (Warehouse warehouse) {
-        mRepository.insert(warehouse);
+        mRepository.insertWarehouse(warehouse);
     }
 
-    public void importFile (String filePath) {
+    public void importFile (InputStream filePath) {
         mRepository.importFile(filePath);
     }
 }
