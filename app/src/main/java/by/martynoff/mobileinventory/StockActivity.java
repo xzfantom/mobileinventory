@@ -9,7 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class StockActivity extends AppCompatActivity {
@@ -27,9 +29,28 @@ public class StockActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.stockRecyclerView);
         final StockListAdapter adapter = new StockListAdapter(this, new StockListAdapter.OnItemClickListener(){
             @Override
-            public void onItemClick(View v, int position) {
+            public void onItemClick(View v, Stock stock, int action) {
                 // TODO: Check what was pressed and add/substract 1 from fact quantity
-                Log.d("StockActivity", "onItemClick " + position);
+                Log.d("StockActivity", "onItemClick " + stock.amountFact.toString());
+
+                switch (action){
+                    case StockListAdapter.STOCK_LIST_ACTION_INC:
+                        mStockActivityViewModel.setFactQuantity(stock, stock.amountFact.add(new BigDecimal("1")));
+                        break;
+
+                    case StockListAdapter.STOCK_LIST_ACTION_DEC:
+                        mStockActivityViewModel.setFactQuantity(stock, stock.amountFact.subtract(new BigDecimal("1")));
+                        break;
+
+                    case StockListAdapter.STOCK_LIST_ACTION_SET:
+                        mStockActivityViewModel.updateStock(stock);
+                        break;
+
+                    case StockListAdapter.STOCK_LIST_ACTION_DESCR:
+                        break;
+
+
+                }
             }
         });
         recyclerView.setAdapter(adapter);

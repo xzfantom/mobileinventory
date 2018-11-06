@@ -53,6 +53,7 @@ public class mobileInventoryRepository {
         return inventoryStock;
     }
 
+
     public void insertWarehouse (Warehouse warehouse){
         new insertWarehouseAsyncTask(warehouseDAO).execute(warehouse);
     }
@@ -113,6 +114,15 @@ public class mobileInventoryRepository {
         }
     }
 
+    public void setFactQuantity(Stock stock, BigDecimal sum){
+        stock.amountFact = sum;
+        new updateStockAsyncTask(stockDAO).execute(stock);
+    }
+
+    public void updateStock(Stock stock) {
+        new updateStockAsyncTask(stockDAO).execute(stock);
+    }
+
     private static class insertWarehouseAsyncTask extends AsyncTask<Warehouse, Void, Void> {
         private WarehouseDAO asyncTaskWarehouseDAO;
 
@@ -165,6 +175,20 @@ public class mobileInventoryRepository {
         @Override
         protected Void doInBackground(final Stock... params) {
             asyncTaskStockDAO.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateStockAsyncTask extends AsyncTask<Stock, Void, Void> {
+        private StockDAO asyncTaskStockDAO;
+
+        updateStockAsyncTask(StockDAO dao){
+            asyncTaskStockDAO = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Stock... params) {
+            asyncTaskStockDAO.update(params[0]);
             return null;
         }
     }

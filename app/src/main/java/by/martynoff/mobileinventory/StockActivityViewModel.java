@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class StockActivityViewModel extends AndroidViewModel {
@@ -29,5 +30,12 @@ public class StockActivityViewModel extends AndroidViewModel {
         return currentStock;
     }
 
+    public void setFactQuantity(Stock stock, BigDecimal quantity){
+        mMobileInventoryRepository.setFactQuantity(stock, quantity);
+    }
+
+    public void updateStock(Stock stock){
+        mMobileInventoryRepository.updateStock(stock);
+    }
 
 }

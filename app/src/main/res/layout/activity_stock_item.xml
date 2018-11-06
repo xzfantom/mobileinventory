@@ -17,35 +17,42 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/plusView"
+            android:id="@+id/incView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_exposure_plus_1_black_24dp" />
 
         <TextView
             android:id="@+id/baseQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="TextView"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
-        <TextView
+        <EditText
             android:id="@+id/factQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:enabled="true"
+            android:inputType="numberDecimal"
             android:text="TextView"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <ImageView
-            android:id="@+id/minusView"
+            android:id="@+id/decView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_exposure_neg_1_black_24dp" />
+
+
     </LinearLayout>
 </LinearLayout>
