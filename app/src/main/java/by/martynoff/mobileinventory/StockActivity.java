@@ -2,7 +2,11 @@ package by.martynoff.mobileinventory;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +18,7 @@ import android.widget.EditText;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class StockActivity extends AppCompatActivity {
+public class StockActivity extends AppCompatActivity implements NumberInputDialog.NoticeDialogListener{
 
     private String warehouseCode;
     private StockActivityViewModel mStockActivityViewModel;
@@ -23,6 +27,8 @@ public class StockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
+
+
 
         warehouseCode = getIntent().getStringExtra(MainActivity.WAREHOUSE_CODE);
 
@@ -43,7 +49,12 @@ public class StockActivity extends AppCompatActivity {
                         break;
 
                     case StockListAdapter.STOCK_LIST_ACTION_SET:
-                        mStockActivityViewModel.updateStock(stock);
+//                        FragmentManager fm = getSupportFragmentManager();
+//                        NumberInputDialog numberInputDialog = NumberInputDialog.newInstance("Some Title");
+//                        numberInputDialog.show(fm, "fragment_number_input_dialog");
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, StockItemActivity.class);
+                        context.startActivity(intent);
                         break;
 
                     case StockListAdapter.STOCK_LIST_ACTION_DESCR:
@@ -64,5 +75,15 @@ public class StockActivity extends AppCompatActivity {
                 adapter.setStock(stock);
             }
         });
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
     }
 }

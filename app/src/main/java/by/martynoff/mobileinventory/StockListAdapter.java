@@ -28,7 +28,7 @@ public class StockListAdapter extends RecyclerView.Adapter<StockListAdapter.Stoc
     class StockViewHolder extends RecyclerView.ViewHolder{
         private final TextView goodNameView;
         private final TextView baseQuantity;
-        private final EditText factQuantity;
+        private final TextView factQuantity;
         private final ImageView incQuantity;
         private final ImageView decQuantity;
 
@@ -70,12 +70,9 @@ public class StockListAdapter extends RecyclerView.Adapter<StockListAdapter.Stoc
             holder.factQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    holder.factQuantity.
-                    current.stock.amountFact = new BigDecimal(holder.factQuantity.getText().toString());
                     clickListener.onItemClick(view, current.stock, STOCK_LIST_ACTION_SET);
                 }
             });
-
             holder.decQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

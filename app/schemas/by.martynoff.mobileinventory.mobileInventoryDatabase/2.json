@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "b6ec2278b5bb3d4b8d0cbea6de2b15f1",
+    "identityHash": "c8221537225f7c14799fbce5254ad3b0",
     "entities": [
       {
         "tableName": "warehouses",
@@ -128,6 +128,14 @@
               "good_code"
             ],
             "createSql": "CREATE  INDEX `index_stocks_warehouse_code_good_code` ON `${TABLE_NAME}` (`warehouse_code`, `good_code`)"
+          },
+          {
+            "name": "index_stocks_good_code",
+            "unique": false,
+            "columnNames": [
+              "good_code"
+            ],
+            "createSql": "CREATE  INDEX `index_stocks_good_code` ON `${TABLE_NAME}` (`good_code`)"
           }
         ],
         "foreignKeys": [
@@ -158,7 +166,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b6ec2278b5bb3d4b8d0cbea6de2b15f1\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c8221537225f7c14799fbce5254ad3b0\")"
     ]
   }
 }

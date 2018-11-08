@@ -10,10 +10,13 @@ import android.support.annotation.NonNull;
 import java.math.BigDecimal;
 
 @Entity (tableName = "stocks"
-        , indices = {@Index(value = {"warehouse_code", "good_code"})}
+        , indices = {
+            @Index(value = {"warehouse_code", "good_code"}),
+            @Index(value = {"good_code"})
+        }
         , foreignKeys = {
-        @ForeignKey(entity = Warehouse.class, parentColumns = "code", childColumns = "warehouse_code"),
-        @ForeignKey(entity = Good.class, parentColumns = "code", childColumns = "good_code")
+            @ForeignKey(entity = Warehouse.class, parentColumns = "code", childColumns = "warehouse_code"),
+            @ForeignKey(entity = Good.class, parentColumns = "code", childColumns = "good_code")
         }
         , primaryKeys = {"warehouse_code", "good_code"}
         )
